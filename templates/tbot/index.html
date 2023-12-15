@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="tbot">
+    <div id="head-tbot" class="mb-5 d-flex">
+        <h2>Quản lý Bot Telegram</h2>
+        <a href="{% url 'tbot_add' %}" class="btn btn-info mx-5" style="font-size : 20px;">Thêm Bot</a>
+    </div>
+
+    <div id="table-tbot" class="row justify-content-center">
+        <div class="col-md-10 table-scroll">
+            <table class="table text-white mx-3">
+                <thead>
+                <tr>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Token</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for bot in tbot %}
+                <tr>
+                   
+                        <td>{{bot.name}}</td>
+                        <td>{{bot.link}}</td>
+                        <td>{{bot.created_at}}</td>
+                        <td>{{bot.token}}</td>
+                        <td>
+                            <!-- tbot_detail.html -->
+                        <form action="{% url 'tbot_delete' bot.id %}" method="POST">
+                            {% csrf_token %}
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                        </form>
+                        </td>
+                    
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

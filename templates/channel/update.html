@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="update_channel" class="container row justify-content-center mt-5">
+    <div id="head-update-channel" class="mb-5 d-flex">
+        <form method="POST">
+            {% csrf_token %}
+            {{ update_channel_form.as_p }}
+            <button type="submit" class="btn btn-primary m-2">Update Channel</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

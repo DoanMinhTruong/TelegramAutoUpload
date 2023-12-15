@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="channel">
+    <div id="head-channel" class="mb-5 d-flex">
+        <h2>Quản lý Channel</h2>
+        <a href="{% url 'channel_add' %}" class="btn btn-info mx-5" style="font-size : 20px;">Thêm Channel</a>
+    </div>
+
+    <div id="table-tbot" class="row justify-content-center">
+        <div class="col-md-10 table-scroll">
+            <table class="table text-white mx-3">
+                <thead>
+                <tr>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Bot</th>
+                    <th scope="col">Created At</th>
+                    <!-- <th scope="col">Token</th> -->
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for c in channel %}
+                    <tr>
+                        <td>{{c.name}}</td>
+                        <td>{{c.link}}</td>
+                        <td>{{c.tbot}}</td>
+                        <td>{{c.created_at}}</td>
+                        <td class="row justify-content-center">
+                            <div class="col-md-3">
+                                <a href="{% url 'channel_detail' c.id %}" class="btn btn-primary">Detail</a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{% url 'channel_update' c.id %}" class="btn btn-success">Update</a>
+                            </div>
+                            <div class="col-md-3">
+                                <form action="{% url 'channel_delete' c.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input class="btn btn-danger" type="submit" value="Delete">
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
