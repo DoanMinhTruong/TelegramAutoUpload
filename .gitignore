@@ -6,7 +6,7 @@ __pycache__
 db.sqlite3
 media
 # Environments 
-
+.env
 .venv 
 # Visual Studio Code # 
 .vscode/* 
