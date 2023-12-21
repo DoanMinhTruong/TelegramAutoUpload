@@ -44,7 +44,7 @@ def bot_sendto_channel_no_images(bot_token , channel_link , message):
     channel_link = "@" + channel_link.split('/')[-1]
     try:
         
-        bot.send_message(chat_id=channel_link, text=message, parse_mode='HTML')
+        bot.send_message(chat_id=channel_link, text=message, parse_mode='MARKDOWN')
     except Exception as e:
         print(f"Lỗi: {e}")
         return None
@@ -53,7 +53,7 @@ def get_channel_id(bot_token , channel_link):
     bot = telebot.TeleBot(bot_token)
     channel_link = "@" + channel_link.split('/')[-1]
     try:
-        message = bot.send_message(channel_link, 'temporary message')
+        message = bot.send_message(channel_link, 'temporary message', disable_notification=True)
         channel_id = message.chat.id
         bot.delete_message(channel_id, message.message_id)
         return channel_id

@@ -85,11 +85,30 @@ WSGI_APPLICATION = 'backend.wsgi.app'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'telegramautoupload',
+        'USER': 'ez',
+        'PASSWORD': 'dmtruong.021',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'logfile': {
+            'class': 'logging.FileHandler',
+            'filename': './debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['logfile'],
+        },
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

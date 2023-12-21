@@ -168,7 +168,7 @@ def post_run(request, post_id):
     images = Image.objects.filter(post = post)
     img = []
     for i in images:
-        img.append("media/" + str(i.image))
+        img.append("./media/" + str(i.image))
     print(img)
     content = post.content
     channel = post.channel
@@ -194,15 +194,21 @@ def post_run(request, post_id):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-
+import time
 def post_stop(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     
     
     background = BackgroundSingleton()
-
-    job= background.pause_job(post.tid)
+    while(True):
+        time.sleep(10)
+        try:
+            job= background.pause_job(post.tid)
+            break
+        except:
+            continue
     post.is_running = False
+    post.tid = ""
     post.save()
 
     return redirect(request.META.get('HTTP_REFERER'))

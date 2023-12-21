@@ -16,10 +16,7 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     
-    from backend.background import BackgroundSingleton
 
-    background_singleton = BackgroundSingleton()
-    background_singleton.start()
 
     execute_from_command_line(sys.argv)
 
