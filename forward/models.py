@@ -13,7 +13,7 @@ class Forward(models.Model):
 
     channels = models.ManyToManyField(Channel, through='ForwardChannel')
      
-    tids = ArrayField(models.CharField(max_length=255,null=True, blank=True) , null = True)
+    tid = models.CharField(max_length=255,null=True, blank=True)
     def __str__(self) -> str:
         return self.name + " | " + str(self.scheduled_time) + " | " + str(self.is_running)
     
@@ -22,3 +22,9 @@ class Forward(models.Model):
 class ForwardChannel(models.Model):
     forward = models.ForeignKey(Forward, on_delete=models.CASCADE)
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE)
+
+
+class FImage(models.Model):
+    forward = models.ForeignKey(Forward, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="fimage/")
+    
