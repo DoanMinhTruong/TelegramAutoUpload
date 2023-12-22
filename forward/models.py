@@ -13,7 +13,7 @@ class Forward(models.Model):
 
     channels = models.ManyToManyField(Channel, through='ForwardChannel')
      
-    tids = ArrayField(models.CharField(max_length=255,null=True, blank=True))
+    tids = ArrayField(models.CharField(max_length=255,null=True, blank=True) , null = True)
     def __str__(self) -> str:
         return self.name + " | " + str(self.scheduled_time) + " | " + str(self.is_running)
     
