@@ -26,5 +26,7 @@ urlpatterns = [
     path('channel/' , include('channel.urls')),
     path('tbot/' , include("tbot.urls")),
     path('post/' , include("post.urls")),
+    path('forward/' , include("forward.urls")),
+
     path('', lambda request: redirect('dashboard_index')),
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT )
