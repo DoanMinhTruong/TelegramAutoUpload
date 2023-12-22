@@ -90,7 +90,7 @@ def update(request , forward_id):
         forward_form = ForwardForm(request.POST, instance=forward)
         images = request.FILES.getlist('image')
         if forward_form.is_valid():
-            updated_forward = post_form.save(commit=False)
+            updated_forward = forward_form.save(commit=False)
             updated_forward.save()
 
             # Xóa ảnh cũ của bài viết
