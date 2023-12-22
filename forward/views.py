@@ -66,7 +66,7 @@ def stop(request, forward_id):
     
     background = BackgroundSingleton()
     
-    job= background.get_job(forward.tid).pause()
+    job= background.pause_job(forward.tid)
         
     forward.is_running = False
     forward.tid = ""
