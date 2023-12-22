@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="forward-add" class="container row justify-content-center mt-5">
+    <div class="col-md-8 justify-content-center">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in add_forward_form %}
+            <div>
+                <h5>{{ field.label_tag }} </h5>
+                {{ field }} 
+            </div>
+            
+            {% endfor %}
+            
+            <button class='btn btn-success m-3' type="submit">Save</button>
+        </form>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}

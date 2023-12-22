@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="forward">
+    <div id="head-forward" class="mb-5 d-flex">
+        <h2>Quản lý Forward</h2>
+        <a href="{% url 'forward_add' %}" class="btn btn-info mx-5" style="font-size : 20px;">Thêm Forward</a>
+    </div>
+
+    <div id="table-forward" class="row justify-content-center">
+        <div class="col-md-10 table-scroll">
+            <table class="table text-white mx-3 " >
+                <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">#</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for p in forward %}
+                <tr>
+                   
+                        <td>{{p.name}}</td>
+                        <td>{{p.description}}</td>
+                        <td>{{p.created_at}}</td>
+                        <td class="d-flex">
+                            {% if p.is_running %}
+                            <a class="btn btn-warning m-1" href="{% url 'forward_stop' p.id %}">Stop</a>
+
+                            {% else %}
+                            <a class="btn btn-success m-1" href="{% url 'forward_run' p.id %}">Run</a>
+                            {% endif %}
+                            <a class="btn btn-info m-1" href="{% url 'forward_update' p.id %}">Detail</a>
+                            <form action="{% url 'forward_delete' p.id %}" class="m-1" method="POST">
+                                {% csrf_token %}
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                            </form>
+                        </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

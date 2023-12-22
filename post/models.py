@@ -23,10 +23,11 @@ class Post(models.Model):
     is_running = models.BooleanField(default = False)
     created_at = models.DateTimeField(auto_now_add=True)
     tid = models.CharField(max_length=255,null=True, blank=True)
-
+    def __str__(self) -> str:
+        return self.name + " | " + str(self.scheduled_time) + " | " + str(self.is_running)
         
 
 class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="image/")
-
+    
