@@ -23,7 +23,8 @@ class BackgroundSingleton:
 
     def get_jobs(self):
         return self.scheduler.get_jobs()
-
+    def get_job(self , job_id):
+        return self.scheduler.get_job(job_id)
     def pause_job(self, job_id):
         self.scheduler.pause_job(job_id)
 

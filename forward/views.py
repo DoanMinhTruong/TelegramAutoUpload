@@ -66,11 +66,17 @@ def stop(request, forward_id):
     
     background = BackgroundSingleton()
     while(True):
-        time.sleep(10)
         try:
-            job= background.pause_job(forward.tid)
+            job= background.get_job(forward.tid)
+        except:
+            break
+        if(job == None):
+            break
+        try:
+            job.pause()
             break
         except:
+            time.sleep(10)
             continue
     forward.is_running = False
     forward.tid = ""
