@@ -4,6 +4,8 @@ from .models import Forward, FImage
 from .forms import ForwardForm
 from backend.utils import *
 from backend.background import BackgroundSingleton
+from django.contrib import messages
+
 
 def index(request):
     forward = Forward.objects.all()
@@ -78,9 +80,44 @@ def stop(request, forward_id):
 
 
 def update(request , forward_id):
-    forward = Forward.objects.all()
-    return render(request , "forward/index.html" , {"forward" : forward})
+    forward = get_object_or_404(Forward, id=forward_id)
+    images = FImage.objects.filter(forward = forward)
+    
+    if request.method == 'POST':
+        if(forward.is_running):
+            messages.warning(request , "Post đang chạy")
+            return redirect(request.META.get('HTTP_REFERER'))
+        forward_form = ForwardForm(request.POST, instance=forward)
+        images = request.FILES.getlist('image')
+        if forward_form.is_valid():
+            updated_forward = post_form.save(commit=False)
+            updated_forward.save()
+
+            # Xóa ảnh cũ của bài viết
+            FImage.objects.filter(forward = forward).delete()
+
+            # Tạo ảnh mới cho bài viết
+            for image in images:
+                FImage.objects.create(forward=updated_forward, image=image)
+
+            messages.success(request, "Cập nhật thành công")
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        
+        forward_form = ForwardForm(instance=forward)
+
+    return render(request, 'forward/update.html', {'forward_form': forward_form, 'forward': forward , 'images' : images})
 
 def delete(request, forward_id):
-    forward = Forward.objects.all()
-    return render(request , "forward/index.html" , {"forward" : forward})
+    background = BackgroundSingleton()
+    if request.method == 'POST':
+        try:
+            forward = get_object_or_404(Forward, id=forward_id)
+            try:
+                background.remove_job(forward.tid)
+            except:
+                pass
+            forward.delete()
+        except:
+            messages.warning(request, "Có lỗi khi xóa Forward")
+    return redirect(request.META.get('HTTP_REFERER'))
