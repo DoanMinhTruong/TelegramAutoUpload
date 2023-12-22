@@ -8,7 +8,7 @@ class Channel(models.Model):
     link = models.CharField(max_length=255 , blank = False, null = False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    tbot = models.ForeignKey(Tbot , on_delete=models.SET_NULL, null= True , unique = True)
+    tbot = models.ForeignKey(Tbot , on_delete=models.SET_NULL, null= True )
 
     def __str__(self) -> str:
         return self.name + " | " + self.link 
