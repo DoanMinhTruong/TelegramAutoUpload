@@ -70,7 +70,7 @@ def stop(request, forward_id):
             job= background.pause_job(forward.tid)
             break
         except:
-            time.sleep(100)
+            time.sleep(1)
             continue
         
     forward.is_running = False
