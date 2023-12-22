@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'channel',
     'tbot',
     'post',
+    'forward',
     'apscheduler'
 ]
 
