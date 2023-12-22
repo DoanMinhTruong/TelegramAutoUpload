@@ -4,10 +4,10 @@ from .models import Forward
 from channel.models import Channel
 class ForwardForm(forms.ModelForm):
     image = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True , 'class' : 'form-control m-2'}), required=False)
-    channel = forms.ModelChoiceField(queryset=Channel.objects.all(), widget=forms.Select(attrs={'class': 'form-control m-2'}))
+    channels = forms.ModelMultipleChoiceField(queryset=Channel.objects.all(), widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-control m-2'}))
     class Meta:
         model = Forward
-        fields = ['name', 'description', 'content', 'scheduled_time', 'channel']
+        fields = ['name', 'description', 'content', 'scheduled_time', 'channels']
         labels = {
             'scheduled_time' : 'Scheduled Time (s)'
         }
