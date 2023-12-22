@@ -13,6 +13,6 @@ class ForwardForm(forms.ModelForm):
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control m-2'}),
-            'description': forms.TextInput(attrs={'class': 'form-control m-2'} , required = False),
+            'description': forms.TextInput(attrs={'class': 'form-control m-2'} ),
             'content': forms.Textarea(attrs={"rows":"5" , 'class' : 'form-control m-2'}),
         }
