@@ -67,7 +67,7 @@ def stop(request, forward_id):
     background = BackgroundSingleton()
     while(True):
         try:
-            job= background.pause_job(forward.tid)
+            job= background.remove_job(forward.tid)
             break
         except:
             time.sleep(1)
